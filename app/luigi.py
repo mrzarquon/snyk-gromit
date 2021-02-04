@@ -25,7 +25,8 @@ for root, dirs, files in os.walk(dir_path):
     for file in files:
         if file in builds:
             the_path = os.path.join(root,file)
-            children[file] = []
+            if file not in children:
+                children[file] = []
             folder = os.path.dirname(os.path.relpath(the_path, start = os.curdir))
             children[file].append(folder)
 
