@@ -39,3 +39,33 @@ trigger-snyk-tests:
         job: snyk-autogen
     strategy: depend
 ```
+
+scanning against a repo it generates a jobs.yaml, which the next step `trigger-snyk-tests` loads and that spins up the needed child pipelines
+```yaml
+snyk-node-frontend:
+  image:
+    entrypoint:
+    - ''
+    name: snyk/snyk:node-14
+  script:
+  - cd frontend
+  - npm install
+  - npm install snyk-to-html -g
+  - snyk auth $SNYK_TOKEN
+  - snyk monitor --remote-repo-url=${CI_PROJECT_URL} --project-name=${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/frontend
+  - snyk test --severity-threshold=high --remote-repo-url=${CI_PROJECT_URL} --project-name=${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/frontend
+  stage: build
+snyk-python-backend/app:
+  image:
+    entrypoint:
+    - ''
+    name: snyk/snyk:python-3.8
+  script:
+  - cd backend/app
+  - pip install poetry > /dev/null 2>&1
+  - poetry install
+  - snyk auth $SNYK_TOKEN
+  - snyk monitor --remote-repo-url=${CI_PROJECT_URL} --project-name=${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/backend/app
+  - snyk test --severity-threshold=high --remote-repo-url=${CI_PROJECT_URL} --project-name=${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/backend/app
+  stage: build
+```
