@@ -10,7 +10,7 @@ luigi builds the list of package files it should look for based on the *name* of
 
 package.json.yaml -> Luigi looks for package.json and uses package.json.yaml as the template to create a job for every folder that contains a file called 'package.json'
 
-see these [examples](https://github.com/mrzarquon/snyk-job-template)
+see these [examples](https://github.com/mrzarquon/snyk-job-templates)
 
 It then builds a jobs file for you, which if you're using gitlab, you can then automatically generate child pipelines, letting you run snyk test/monitor in parallel for every project in your mono repo.
 
