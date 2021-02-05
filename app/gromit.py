@@ -35,7 +35,7 @@ for root, dirs, files in os.walk(dir_path):
 new_jobs = {}
 for key in children:
     for fname in children[key]:
-        templatename = 'citemplates/'+key+'.yaml'
+        templatename = TEMPLATESDIR+key+'.yaml'
         yamlfile = open(templatename)
         template = yaml.load(yamlfile, Loader=yaml.SafeLoader)
         yamlfile.close()
