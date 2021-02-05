@@ -1,14 +1,18 @@
+## Gromit
+
+![gromit](https://raw.githubusercontent.com/mrzarquon/snyk-luigi/main/static/gromit.gif)
+
 Experimental auto jobs / pipeline builder for snyk
 
-This is a script (app/luigi.py) and a container that can run it in your pipeline.
+This is a script (app/gromit.py) and a container that can run it in your pipeline.
 
-luigi takes 2 inputs:
+gromit takes 2 inputs:
 folder of templates ending in .yaml to use for searches
 output name of the jobs file it should use
 
-luigi builds the list of package files it should look for based on the *name* of templates in you provide:
+gromit builds the list of package files it should look for based on the *name* of templates in you provide:
 
-package.json.yaml -> Luigi looks for package.json and uses package.json.yaml as the template to create a job for every folder that contains a file called 'package.json'
+package.json.yaml -> Gromit looks for package.json and uses package.json.yaml as the template to create a job for every folder that contains a file called 'package.json'
 
 see these [examples](https://github.com/mrzarquon/snyk-job-templates)
 
