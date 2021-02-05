@@ -39,7 +39,6 @@ for key in children:
         yamlfile = open(templatename)
         template = yaml.load(yamlfile, Loader=yaml.SafeLoader)
         yamlfile.close()
-        print(template)
         template['script'] = [s.replace('AUTOGENPROJECT', fname) for s in template['script']]
         job_name = template['stub'] + '-' + fname 
         new_jobs[job_name] = template
