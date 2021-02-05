@@ -1,14 +1,14 @@
 ## Gromit
 
-![gromit](https://raw.githubusercontent.com/mrzarquon/snyk-luigi/main/static/gromit.gif)
+![gromit](https://raw.githubusercontent.com/mrzarquon/snyk-gromit/main/static/gromit.gif)
 
 Experimental auto jobs / pipeline builder for snyk
 
 This is a script (app/gromit.py) and a container that can run it in your pipeline.
 
 gromit takes 2 inputs:
-folder of templates ending in .yaml to use for searches
-output name of the jobs file it should use
+- folder of templates ending in .yaml to use for searches
+- output name of the jobs file it should use
 
 gromit builds the list of package files it should look for based on the *name* of templates in you provide:
 
@@ -19,6 +19,17 @@ see these [examples](https://github.com/mrzarquon/snyk-job-templates)
 It then builds a jobs file for you, which if you're using gitlab, you can then automatically generate child pipelines, letting you run snyk test/monitor in parallel for every project in your mono repo.
 
 This uses GitLab CI's [dynamic child pipelines](https://docs.gitlab.com/ee/ci/parent_child_pipelines.html#dynamic-child-pipelines) feature
+
+What does it look like?
+
+When your pipeline kicks off it looks like this as Gromit is doing it's thing generating the jobs.yaml:
+![first stage of pipeline](https://raw.githubusercontent.com/mrzarquon/snyk-gromit/main/static/first.png)
+
+Then it spins up `trigger-snyk-tests` job runs, which loads the jobs.yaml and that creates the child pipeline containing a snyk test for each project folder it finds, based on those [templates](https://github.com/mrzarquon/snyk-job-templates) mentioned earlier:
+![second stage showing the child pipeline running](https://raw.githubusercontent.com/mrzarquon/snyk-gromit/main/static/second.png)
+
+And because we made sure to use the same `--remote-repo-url` and `--project-name=` using the same CI env variables in each job run, snyk was able to collate all of these individual project runs at snyk.io into a single project:
+![Showing the snyk.io view](https://raw.githubusercontent.com/mrzarquon/snyk-gromit/main/static/third.png)
 
 an example gitlab step that could use this is below:
 
