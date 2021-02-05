@@ -25,10 +25,10 @@ an example gitlab step that could use this is below:
 ```yaml
 snyk-autogen:
   stage: .pre
-  image: mrzarquon/luigi:latest
+  image: mrzarquon/gromit:latest
   script:
     - git clone --depth 1 https://github.com/mrzarquon/snyk-job-templates /tmp/templates
-    - luigi /tmp/templates/gitlab jobs.yaml
+    - gromit /tmp/templates/gitlab jobs.yaml
   artifacts:
     paths:
       - jobs.yaml
