@@ -31,6 +31,4 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}
           pipenv sync
-          pipenv install --system
-          export VIRTUAL_ENV=true
-          snyk monitor --file=Pipfile --remote-repo-url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} --project-name=${GITHUB_REPOSITORY}/Pipfile
+          snyk monitor --file=Pipfile --remote-repo-url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}
