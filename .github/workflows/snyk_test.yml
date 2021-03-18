@@ -1,0 +1,33 @@
+# # This is a basic workflow to help you get started with Actions
+
+# name: CI
+
+# # the jobs in this workflow only runs when a tag is pushed to this repo
+# on:
+#   create:
+#     tags:
+#       - v*
+
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
+
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   snyk-monitor:
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v2
+
+#       - name: Setup Snyk & Snyk-delta
+#         run: npm install -g snyk
+
+#       - name: Run a multi-line script
+#         env: 
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#         run: |
+#           snyk monitor --file=Pipfile
+
+
