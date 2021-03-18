@@ -31,4 +31,4 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}
           pipenv sync
-          snyk monitor --file=Pipfile --remote-repo-url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${GITHUB_REF}
+          snyk monitor --file=Pipfile --remote-repo-url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}
