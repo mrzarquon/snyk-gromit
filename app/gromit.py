@@ -12,7 +12,7 @@ TEMPLATESDIR = sys.argv[1]
 JOBFILE = sys.argv[2]
 
 
-children = {}
+children: dict = {}
 
 builds = []
 for root, dirs, files in os.walk(TEMPLATESDIR):
