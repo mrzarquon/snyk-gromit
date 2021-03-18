@@ -22,10 +22,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: setup pipenv
-        run: pip install pipenv
+      - name: Setup Pipenv
+        run: pip install pipenv --no-cache-dir > /dev/null 2>&1
 
       - name: Grab Snyk Snapshot
         env: 
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk monitor --file=Pipfile
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          pipenv sync
+          pipenv install --system
+          export VIRTUAL_ENV=true
+          snyk monitor --file=Pipfile --remote-repo-url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} --project-name=${GITHUB_REPOSITORY}/Pipfile
